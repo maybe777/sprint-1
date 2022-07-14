@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {FC, useEffect, useRef, useState} from 'react';
 import styles from './burger-ingredients.module.css'
 import BurgerIngredient from "../burger-ingredient/burger-ingredient";
 import {useDispatch, useSelector} from "react-redux";
@@ -7,16 +7,15 @@ import {elementCalculator} from "../../service/scroll-calcuator";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 
 
-export default function BurgerIngredients() {
+const BurgerIngredients: FC = () => {
 
-    // @ts-ignore
-    const data = useSelector(store => store.ingredients.data)
-    // @ts-ignore
-    const items = useSelector(store => store.burger.items)
+    const data = useSelector((store: any) => store.ingredients.data)
+
+    const items: Array<IBurgerItem> = useSelector((store: any) => store.burger.items)
 
     const dispatch = useDispatch()
 
-    const [scrollIndex, setScrollIndex] = useState<Number>(0)
+    const [scrollIndex, setScrollIndex] = useState<number>(0)
 
     useEffect(() => {
         let component: HTMLElement | null = document.getElementById('items')
@@ -38,50 +37,49 @@ export default function BurgerIngredients() {
         };
     }, []);
 
-    const bunRef = useRef(null)
-    const sauceRef = useRef(null)
-    const noviceRef = useRef(null)
+    const bunRef = useRef<HTMLElement>(null)
+    const sauceRef = useRef<HTMLElement>(null)
+    const noviceRef = useRef<HTMLElement>(null)
 
-    function openModal(item: any) {
+    function openModal(item: IBurgerItem) {
         // @ts-ignore
         dispatch(showDetails(item))
     }
 
-    const BUNS: BurgerItem[] = data.filter((item: BurgerItem | any) => {
+    const BUNS: Array<IBurgerItem> = data.filter((item: IBurgerItem | any) => {
         return item.type === "bun";
     })
 
-    const SAUCE: BurgerItem[] = data.filter((item: BurgerItem | any) => {
+    const SAUCE: Array<IBurgerItem> = data.filter((item: IBurgerItem | any) => {
         return item.type === "sauce";
     })
 
-    const NOVICE: BurgerItem[] = data.filter((item: BurgerItem | any) => {
+    const NOVICE: Array<IBurgerItem> = data.filter((item: IBurgerItem | any) => {
         return item.type === "main";
     })
 
-    const ALL: IHeaderData[] = [
+    const ALL: Array<IHeaderData> = [
         {title: 'Булки', data: BUNS, ref: bunRef},
         {title: 'Соусы', data: SAUCE, ref: sauceRef},
         {title: 'Начинки', data: NOVICE, ref: noviceRef}
     ];
 
-    const itemsCount = (item: BurgerItem) => {
-        //@ts-ignore
-        let result = items.filter(cnt => cnt._id === item._id)
+    const itemsCount = (items: Array<IBurgerItem>, item: IBurgerItem) => {
+        let result = items.filter((cnt: IBurgerItem) => cnt._id === item._id)
         return result.length
     }
 
-    const catalog = ALL.map((category: IHeaderData, index) => (
+    const catalog = ALL.map((category: IHeaderData, index: number) => (
         <div className={styles.category} key={"category_key_" + index}>
             <div className={styles.categoryTitle}>
                 <h2 ref={category.ref}>{category.title}</h2>
             </div>
-            {category.data.map((item: BurgerItem) => (
+            {category.data.map((item: IBurgerItem) => (
                 <div key={"item_" + item._id} className={styles.ingredient + " mb-3"}
                      onClick={() => {
                          openModal(item)
                      }}>
-                    <BurgerIngredient item={item} count={itemsCount(item)}/>
+                    <BurgerIngredient item={item} count={itemsCount(items, item)}/>
                 </div>
             ))}
         </div>
@@ -90,8 +88,7 @@ export default function BurgerIngredients() {
     return (
         <div className={styles.ingredientWrapper}>
             <div className={styles.navigationContainer + " mb-3"}>
-                {ALL.map((item, index) =>
-                    // @ts-ignore
+                {ALL.map((item: IHeaderData | any, index: number) =>
                     (<Tab key={"tab_" + index} value={item.title} active={scrollIndex === index}
                           onClick={() => {
                           }}>
@@ -105,3 +102,5 @@ export default function BurgerIngredients() {
     );
 
 }
+
+export default BurgerIngredients

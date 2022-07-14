@@ -1,8 +1,10 @@
-import React from "react";
+import React, {FC} from "react";
 import styles from './modal-overlay.module.css'
 
-export default function ModalOverlay() {
+const ModalOverlay:FC = () => {
     return (
         <div className={styles.overlay}/>
     );
 }
+
+export default ModalOverlay

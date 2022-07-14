@@ -1,12 +1,11 @@
-import React from "react";
+import React, {FC} from "react";
 import styles from './burger-ingredient.module.css'
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDrag} from "react-dnd";
 import {Link, useLocation} from "react-router-dom";
 
 
-//@ts-ignore
-export default function BurgerIngredient({item, count}) {
+const BurgerIngredient: FC<TBurgerProps> = ({item, count}) => {
 
     const location = useLocation()
 
@@ -18,7 +17,7 @@ export default function BurgerIngredient({item, count}) {
         })
     });
 
-    const opacity = isDrag ? 0.4 : 1
+    const opacity: number = isDrag ? 0.4 : 1
 
     const counter = () => {
         if (count > 0) {
@@ -53,5 +52,6 @@ export default function BurgerIngredient({item, count}) {
             </div>
         </Link>
     );
-
 }
+
+export default BurgerIngredient

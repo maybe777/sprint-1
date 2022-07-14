@@ -1,13 +1,12 @@
 import React from 'react';
 
 
-// @ts-ignore
 export function elementCalculator(
     currentPosition: number,
     sectionPositionArray: IHeaderData[],
     startIndex: number,
     endIndex: number
-) {
+): number {
     if (startIndex === endIndex) return startIndex;
     else if (startIndex === endIndex - 1) {
         if (

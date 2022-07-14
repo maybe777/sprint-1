@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ChangeEvent} from 'react'
 import styles from './register.module.css'
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useHistory} from 'react-router-dom';
@@ -12,14 +12,13 @@ export function RegisterPage() {
         name,
         email,
         password
-        //@ts-ignore
-    } = useSelector(store => store.register.form)
+    } = useSelector((store: any) => store.register.form)
 
     const dispatch = useDispatch()
     const history = useHistory()
 
-    //@ts-ignore
-    const onChange = (e) => {
+
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         //@ts-ignore
         dispatch(setRegisterFormValue(e.target.name, e.target.value))
     }

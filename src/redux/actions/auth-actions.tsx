@@ -13,15 +13,14 @@ export const GET_USER_ERROR = 'GET_USER_ERROR'
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 export const LOGOUT_ERROR = 'LOGIN_ERROR'
-export const AUTH_CHECKED = 'AUTH_CHECKED'
 
-export function setLoginFormValue(field: String, value: String) {
+export function setLoginFormValue(field: string, value: string) {
     //@ts-ignore
     return dispatch => {
         dispatch(setFormValue(field, value))
     }
 
-    function setFormValue(field: String, value: String) {
+    function setFormValue(field: string, value: string) {
         return {type: SET_LOGIN_FORM_VALUE, field, value}
     }
 }
@@ -46,16 +45,16 @@ export function getUser() {
         return {type: GET_USER_REQUEST}
     }
 
-    function getUserSuccess(user: User) {
+    function getUserSuccess(user: TUser) {
         return {type: GET_USER_SUCCESS, user}
     }
 
-    function getUserError(error: String) {
+    function getUserError(error: string) {
         return {type: LOGIN_ERROR, error}
     }
 }
 
-export function userLogin(email: String, password: String) {
+export function userLogin(email: string, password: string) {
     //@ts-ignore
     return dispatch => {
         dispatch(loginRequest(email));
@@ -70,15 +69,15 @@ export function userLogin(email: String, password: String) {
             });
     }
 
-    function loginRequest(email: String) {
+    function loginRequest(email: string) {
         return {type: LOGIN_REQUEST, email}
     }
 
-    function loginSuccess(user: User) {
+    function loginSuccess(user: TUser) {
         return {type: LOGIN_SUCCESS, user}
     }
 
-    function loginError(error: String) {
+    function loginError(error: string) {
         return {type: LOGIN_ERROR, error}
     }
 }
@@ -101,7 +100,7 @@ export function userLogout() {
         return {type: LOGOUT_SUCCESS}
     }
 
-    function logoutError(error: String) {
+    function logoutError(error: string) {
         return {type: LOGOUT_ERROR, error}
     }
 }

@@ -8,20 +8,20 @@ export const USER_PROFILE_REQUEST = 'USER_PROFILE_REQUEST'
 export const USER_PROFILE_SUCCESS = 'USER_PROFILE_SUCCESS'
 export const USER_PROFILE_ERROR = 'USER_PROFILE_ERROR'
 
-export function setUserProfileFormValue(field: String, value: String) {
+export function setUserProfileFormValue(field: string, value: string) {
     //@ts-ignore
     return dispatch => {
         dispatch(setFormValue(field, value))
     }
 
-    function setFormValue(field: String, value: String) {
+    function setFormValue(field: string, value: string) {
         return {type: SET_USER_PROFILE_VALUE, field, value}
     }
 }
 
-export function editProfile(name: String, email: String) {
+export function editProfile(name: string, email: string) {
 
-    let form: User = {
+    let form: TUser = {
         name: name, email: email
     }
 
@@ -36,11 +36,11 @@ export function editProfile(name: String, email: String) {
             })
     }
 
-    function editProfileRequest(form: User) {
+    function editProfileRequest(form: TUser) {
         return {type: USER_PROFILE_REQUEST, form}
     }
 
-    function editProfileSuccess(profile: User) {
+    function editProfileSuccess(profile: TUser) {
         return {type: USER_PROFILE_SUCCESS, profile}
     }
 
@@ -66,7 +66,7 @@ export function fetchProfile() {
         return {type: USER_PROFILE_REQUEST}
     }
 
-    function fetchProfileSuccess(profile: User) {
+    function fetchProfileSuccess(profile: TUser) {
         return {type: USER_PROFILE_SUCCESS, profile}
     }
 

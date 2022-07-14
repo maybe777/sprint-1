@@ -8,20 +8,20 @@ export const REGISTER_REQUEST = 'REGISTER_REQUEST'
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 export const REGISTER_ERROR = 'REGISTER_ERROR'
 
-export function setRegisterFormValue(field: String, value: String) {
+export function setRegisterFormValue(field: string, value: string) {
     //@ts-ignore
     return dispatch => {
         dispatch(setFormValue(field, value))
     }
 
-    function setFormValue(field: String, value: String) {
+    function setFormValue(field: string, value: string) {
         return {type: SET_REGISTER_FORM_VALUE, field, value}
     }
 }
 
-export function userRegister(name: String, email: String, password: String) {
+export function userRegister(name: string, email: string, password: string) {
 
-    let form: RegisterForm = {
+    let form: TRegisterForm = {
         name: name, email: email, password: password
     }
 
@@ -38,7 +38,7 @@ export function userRegister(name: String, email: String, password: String) {
             });
     }
 
-    function registerRequest(form: RegisterForm) {
+    function registerRequest(form: TRegisterForm) {
         return {type: REGISTER_REQUEST, form}
     }
 
@@ -46,7 +46,7 @@ export function userRegister(name: String, email: String, password: String) {
         return {type: REGISTER_SUCCESS}
     }
 
-    function registerError(error: String) {
+    function registerError(error: string) {
         return {type: REGISTER_ERROR, error}
     }
 }

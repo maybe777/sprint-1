@@ -1,34 +1,32 @@
-import React, {useEffect} from 'react'
+import React, {ChangeEvent, FC, useEffect} from 'react'
 import styles from "./profile-edit.module.css";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
 import {editProfile, fetchProfile, setUserProfileFormValue} from "../../redux/actions/user-profile-actions";
 
 
-export function ProfileEdit() {
+export const ProfileEdit: FC = () => {
 
     const dispatch = useDispatch()
 
     const {
         name,
-        email,
-        password
-        //@ts-ignore
-    } = useSelector(store => store.profile.form)
+        email
+    } = useSelector((store: any) => store.profile.form)
 
     useEffect(() => {
         //@ts-ignore
         dispatch(fetchProfile())
     }, [dispatch])
 
-    //@ts-ignore
+
     const editProfileHandler = () => {
         //@ts-ignore
-        dispatch(editProfile(name, email, password))
+        dispatch(editProfile(name, email))
     }
 
-    //@ts-ignore
-    const onChange = (e) => {
+
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         //@ts-ignore
         dispatch(setUserProfileFormValue(e.target.name, e.target.value))
     }

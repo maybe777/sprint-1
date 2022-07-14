@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {FC, useEffect} from 'react'
 import MainPage from "../../pages/main/main"
 import {Switch, Route, useLocation, useHistory} from 'react-router-dom'
 import {LoginPage} from "../../pages/login/login";
@@ -19,13 +19,13 @@ import OrderDetails from "../details-order/order-details";
 import {getLocalStorageItem} from "../../service/token-service";
 
 
-function App() {
+const App: FC = () => {
 
     const location = useLocation()
     const history = useHistory()
     const dispatch = useDispatch();
 
-    const loggedIn = !!getLocalStorageItem('user')
+    const loggedIn: boolean = !!getLocalStorageItem('user')
 
     useEffect(() => {
         // @ts-ignore

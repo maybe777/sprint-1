@@ -1,16 +1,15 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, {FC} from "react";
+import {useSelector} from "react-redux";
 import styles from './ingredient-details.module.css'
 import {useParams} from "react-router-dom";
 
 
-export default function IngredientDetails() {
+const IngredientDetails: FC = () => {
 
-    const { id } = useParams<{ id: string }>();
+    const {id} = useParams<{ id: string }>();
 
-    const item = useSelector((state) => {
-        // @ts-ignore
-        return state.ingredients.data.find((item) => item._id === id);
+    const item: IBurgerItem = useSelector((store: any) => {
+        return store.ingredients.data.find((item: IBurgerItem) => item._id === id);
     });
 
     if (!item) {
@@ -47,3 +46,5 @@ export default function IngredientDetails() {
     );
 
 }
+
+export default IngredientDetails

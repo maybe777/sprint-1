@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ChangeEvent} from 'react'
 import styles from "./login.module.css";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
@@ -11,18 +11,16 @@ export function LoginPage() {
     const {
         login,
         password
-        //@ts-ignore
-    } = useSelector(store => store.auth.form)
+    } = useSelector((store: any) => store.auth.form)
 
     const dispatch = useDispatch()
-    const location = useLocation();
+    const location = useLocation<any>();
     const history = useHistory();
 
-    //@ts-ignore
+
     const dest = location?.state?.from.pathname || '/'
 
-    //@ts-ignore
-    const onChange = (e) => {
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         //@ts-ignore
         dispatch(setLoginFormValue(e.target.name, e.target.value))
     }

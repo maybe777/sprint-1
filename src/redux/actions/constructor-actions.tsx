@@ -6,10 +6,10 @@ export const ADD_ITEM = "ADD_ITEM";
 export const REMOVE_ITEM = "REMOVE_ITEM";
 export const SORT_ITEM = "SORT_ITEM";
 
-export function addItem(item: BurgerItem) {
+export function addItem(item: IBurgerItem) {
     return function (dispatch: any) {
 
-        const itemWithUUID = (item: BurgerItem) => ({
+        const itemWithUUID = (item: IBurgerItem) => ({
             ...item,
             __v: uuidv4()
         })

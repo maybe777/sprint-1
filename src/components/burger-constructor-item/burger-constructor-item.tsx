@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React, {FC, useRef} from 'react'
 import styles from "./burger-constructor-item.module.css";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {removeItem, sortItem} from "../../redux/actions/constructor-actions";
@@ -6,10 +6,9 @@ import {useDrag, useDrop} from "react-dnd";
 import {useDispatch} from "react-redux";
 
 
-//@ts-ignore
-export default function BurgerConstructorItem({item, index}) {
+const BurgerConstructorItem: FC<TConstructorProps> = ({item, index}) => {
 
-    const dndRef = useRef(null)
+    const dndRef = useRef<HTMLDivElement>(null)
 
     const dispatch = useDispatch()
 
@@ -62,7 +61,7 @@ export default function BurgerConstructorItem({item, index}) {
 
     dragRef(sortRef(dndRef))
 
-    const opacity = isDrag ? 0 : 1;
+    const opacity: number = isDrag ? 0 : 1;
 
     return (
         <div ref={dndRef} style={{opacity}} className={styles.item + " pt-2 mr-2"}>
@@ -80,3 +79,5 @@ export default function BurgerConstructorItem({item, index}) {
         </div>
     )
 }
+
+export default BurgerConstructorItem
