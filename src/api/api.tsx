@@ -18,7 +18,7 @@ const TEMP_ORDER_MOCK_ID: string = "60d3b41abdacab0026a733c6"
 
 export const dataRequest = async () => {
 
-    let result: BurgerItem[] = [];
+    let result: Array<IBurgerItem> = [];
 
     await fetch(INGREDIENTS_URL)
         .then(checkResponse)
@@ -32,7 +32,7 @@ export const dataRequest = async () => {
     return result;
 }
 
-export async function fetchOrder() {
+export async function fetchOrder(): Promise<number> {
 
     let result: number = 0;
 
@@ -55,7 +55,7 @@ export async function fetchOrder() {
     return result;
 }
 
-export async function register(form: RegisterForm) {
+export async function register(form: TRegisterForm) {
     await fetchWithToken(REGISTER_URL, {
         method: 'POST',
         headers: {
@@ -77,9 +77,9 @@ export async function register(form: RegisterForm) {
         })
 }
 
-export async function login(email: String, password: String) {
+export async function login(email: string, password: string): Promise<IUserCredentials> {
 
-    let result: UserCredentials = {user: {email: "", name: ""}, accessToken: "", refreshToken: ""}
+    let result: IUserCredentials = {user: {email: "", name: ""}, accessToken: "", refreshToken: ""}
 
     await fetchWithToken(LOGIN_URL, {
         method: 'POST',
@@ -144,9 +144,9 @@ export async function refreshToken() {
         .then(checkResponse)
 }
 
-export async function passwordForgot(email: String) {
+export async function passwordForgot(email: string): Promise<boolean> {
 
-    let result: Boolean = false
+    let result: boolean = false
 
     await fetch(PASSWORD_FORGOT, {
         method: 'POST',
@@ -170,9 +170,9 @@ export async function passwordForgot(email: String) {
     return result
 }
 
-export async function passwordReset(password: String, token: String) {
+export async function passwordReset(password: string, token: string): Promise<boolean> {
 
-    let result: Boolean = false
+    let result: boolean = false
 
     await fetch(PASSWORD_RESET, {
         method: 'POST',
@@ -196,8 +196,8 @@ export async function passwordReset(password: String, token: String) {
     return result
 }
 
-export async function fetchUser() {
-    let result: User = {name: "", email: ""}
+export async function fetchUser(): Promise<TUser> {
+    let result: TUser = {name: "", email: ""}
 
     let token = getCookieItem('accessToken')
 
@@ -220,11 +220,11 @@ export async function fetchUser() {
     return result
 }
 
-export async function saveUser(form: User) {
+export async function saveUser(form: TUser) {
 
     let token = getCookieItem('accessToken')
 
-    let result: User = {name: "", email: ""}
+    let result: TUser = {name: "", email: ""}
     await fetchWithToken(PROFILE, {
         method: 'PATCH',
         headers: {
@@ -248,14 +248,14 @@ export async function saveUser(form: User) {
     return result
 }
 
-export function checkResponse(res: Response) {
+export function checkResponse(res: Response): any {
     if (res.ok) {
         return res.json()
     }
     throw new Error('Network response was not status 200.');
 }
 
-export function setCookie(name: String, value: any, props: any) {
+export function setCookie(name: string, value: string, props: any) {
 
     props = {
         path: '/',
@@ -284,14 +284,14 @@ export function setCookie(name: String, value: any, props: any) {
     document.cookie = updatedCookie;
 }
 
-export function getCookie(name: String) {
+export function getCookie(name: string) {
     const matches = document.cookie.match(
         new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
     );
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-async function fetchWithToken(url: any, options: any) {
+async function fetchWithToken(url: string, options: TOptions) {
     try {
         const result = await fetch(url, options)
         return await checkResponse(result)

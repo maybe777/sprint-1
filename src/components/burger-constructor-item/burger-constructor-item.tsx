@@ -1,15 +1,14 @@
-import React, {useRef} from 'react'
+import React, {FC, useRef} from 'react'
 import styles from "./burger-constructor-item.module.css";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {removeItem, sortItem} from "../../redux/actions/constructor-actions";
 import {useDrag, useDrop} from "react-dnd";
-import {useDispatch} from "react-redux";
+import {useDispatch} from "../../service/hooks";
 
 
-//@ts-ignore
-export default function BurgerConstructorItem({item, index}) {
+const BurgerConstructorItem: FC<TConstructorProps> = ({item, index}) => {
 
-    const dndRef = useRef(null)
+    const dndRef = useRef<HTMLDivElement>(null)
 
     const dispatch = useDispatch()
 
@@ -38,12 +37,10 @@ export default function BurgerConstructorItem({item, index}) {
                 return
             }
 
-            // @ts-ignore
-            const hoverBoundRect = dndRef.current?.getBoundingClientRect()
+            const hoverBoundRect: DOMRect = dndRef.current?.getBoundingClientRect()
             const hoverY = (hoverBoundRect.bottom - hoverBoundRect.top) / 1.2
-            const clientOffset = monitor.getClientOffset()
-            // @ts-ignore
-            const clientY = clientOffset?.y - hoverBoundRect?.top
+            const clientOffset: any = monitor.getClientOffset()
+            const clientY: number = clientOffset?.y - hoverBoundRect?.top
 
             if (dragIndex < index && clientY < hoverY) {
                 return
@@ -53,7 +50,6 @@ export default function BurgerConstructorItem({item, index}) {
                 return
             }
 
-            //@ts-ignore
             dispatch(sortItem(item.index, index))
 
             item.index = index
@@ -62,7 +58,7 @@ export default function BurgerConstructorItem({item, index}) {
 
     dragRef(sortRef(dndRef))
 
-    const opacity = isDrag ? 0 : 1;
+    const opacity: number = isDrag ? 0 : 1;
 
     return (
         <div ref={dndRef} style={{opacity}} className={styles.item + " pt-2 mr-2"}>
@@ -74,9 +70,10 @@ export default function BurgerConstructorItem({item, index}) {
                 thumbnail={item.image}
                 price={item.price}
                 isLocked={false}
-                //@ts-ignore
                 handleClose={() => dispatch(removeItem(index))}
             />
         </div>
     )
 }
+
+export default BurgerConstructorItem

@@ -1,19 +1,18 @@
-import React, {useEffect, useRef} from "react";
+import React, {FC, useEffect, useRef} from "react";
 import ReactDOM from "react-dom";
 import styles from "./modal.module.css";
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 
 
-//@ts-ignore
-const Modal = ({title, onClose, children}) => {
+const Modal: FC<IModal> = ({title, onClose, children}) => {
 
     const modalRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        let handler = (event: any) => {
+        let handler = (e: MouseEvent) => {
             if (modalRef.current != null) {
-                if (!modalRef.current.contains(event.target)) {
+                if (!modalRef.current.contains(e.target as Node)) {
                     onClose()
                 }
             }
@@ -25,10 +24,9 @@ const Modal = ({title, onClose, children}) => {
     }, [onClose])
 
     useEffect(() => {
-        let handler = (event: any) => {
+        let handler = (e: KeyboardEvent) => {
             if (modalRef.current != null) {
-                if (event.keyCode === 27) {
-                    console.log(event.keyCode)
+                if (e.key === 'Escape') {
                     onClose()
                 }
             }
@@ -57,8 +55,7 @@ const Modal = ({title, onClose, children}) => {
             </div>
         </>,
         // @ts-ignore
-        document.getElementById('modal')
-    );
+        document.getElementById('modal'));
 }
 
 export default Modal;

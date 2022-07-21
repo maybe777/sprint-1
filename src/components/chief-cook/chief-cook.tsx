@@ -1,9 +1,9 @@
-import React from "react";
+import React, {FC} from "react";
 import styles from "../chief-cook/chief-cook.module.css";
 import chief from "../../images/cooking.png";
 
 
-export default function ChiefCook() {
+const ChiefCook: FC = () => {
 
 
     return (
@@ -16,3 +16,5 @@ export default function ChiefCook() {
         </div>
     )
 }
+
+export default ChiefCook

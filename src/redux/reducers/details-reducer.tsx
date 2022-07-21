@@ -1,23 +1,18 @@
 import React from "react";
-import {CLOSE_DETAILS, SHOW_DETAILS} from "../actions/details-actions";
+import {SHOW_DETAILS} from "../actions/details-actions";
+import {TDetailsAction} from "../types/details-actions-types";
 
-const initialState = {
+const initialState: IDetailsState = {
     item: null
 }
 
-const detailsReducer = (state: IDetailsState = initialState, action: any) => {
+const detailsReducer = (state = initialState, action: TDetailsAction) => {
     switch (action.type) {
         case SHOW_DETAILS:
             return {
                 ...state,
                 item: action.item
             };
-        case CLOSE_DETAILS: {
-            return {
-                ...state,
-                item: null
-            }
-        }
         default :
             return state;
     }

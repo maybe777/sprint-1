@@ -1,8 +1,9 @@
 import React from "react";
 import {ADD_ITEM, REMOVE_ITEM, SORT_ITEM} from "../actions/constructor-actions";
+import {TConstructorActions} from "../types/constructor-actions-types";
 
 
-const initialState = {
+const initialState: IConstructorState = {
     items: [
         {
             "_id": "60666c42cc7b410027a1a9b1",
@@ -16,12 +17,12 @@ const initialState = {
             "image": "https://code.s3.yandex.net/react/code/bun-02.png",
             "image_mobile": "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
             "image_large": "https://code.s3.yandex.net/react/code/bun-02-large.png",
-            "__v": 0
+            "__v": '0'
         },
     ]
 };
 
-const constructorReducer = (state: IConstructorState = initialState, action: any) => {
+const constructorReducer = (state = initialState, action: TConstructorActions) => {
     switch (action.type) {
         case ADD_ITEM:
             if (action.item.type === 'bun') {

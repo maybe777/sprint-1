@@ -1,15 +1,15 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {ListIcon, Logo, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {BurgerIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './app-header.module.css';
 import {NavLink, Link, useRouteMatch} from 'react-router-dom';
 
 
-export default function AppHeader() {
+const AppHeader: FC = () => {
 
-    const isConstructor = !!useRouteMatch({path: '/', exact: true})
-    const isFeed = !!useRouteMatch({path: '/feed', exact: true})
-    const isProfile = !!useRouteMatch({path: '/profile', exact: true})
+    const isConstructor: boolean = !!useRouteMatch({path: '/', exact: true})
+    const isFeed: boolean = !!useRouteMatch({path: '/feed', exact: true})
+    const isProfile: boolean = !!useRouteMatch({path: '/profile', exact: true})
 
     return (
         <header className={styles.header}>
@@ -62,3 +62,5 @@ export default function AppHeader() {
     );
 
 }
+
+export default AppHeader

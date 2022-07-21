@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {ChangeEvent, useState} from 'react'
 import styles from "./password-reset.module.css";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, Redirect, useHistory} from "react-router-dom";
@@ -7,18 +7,16 @@ import {getLocalStorageItem} from "../../service/token-service";
 
 export function PasswordResetPage() {
 
-    const send = getLocalStorageItem('isSend')
+    const isSend: boolean = getLocalStorageItem('isSend')
 
     const [password, setPassword] = useState("")
     const [token, setToken] = useState("")
 
-    //@ts-ignore
-    const handlePassword = e => {
+    const handlePassword = (e: ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value)
     }
 
-    //@ts-ignore
-    const handleToken = e => {
+    const handleToken = (e: ChangeEvent<HTMLInputElement>) => {
         setToken(e.target.value)
     }
 
@@ -36,7 +34,7 @@ export function PasswordResetPage() {
         })
     }
 
-    if (!send) {
+    if (!isSend) {
         return (<Redirect to={'/forgot-password'}/>)
     }
 

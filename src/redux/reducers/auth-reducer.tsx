@@ -10,7 +10,7 @@ import {
 } from "../actions/auth-actions";
 
 
-const initialState = {
+const initialState: IAuthInitialState = {
     form: {
         login: '',
         password: ''

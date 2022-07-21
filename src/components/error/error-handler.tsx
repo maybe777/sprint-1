@@ -1,6 +1,6 @@
-import React from "react";
+import React, {FC} from "react";
 
-export default function ErrorHandler() {
+const ErrorHandler: FC = () => {
 
     return (
         <div>
@@ -17,3 +17,5 @@ export default function ErrorHandler() {
     );
 
 }
+
+export default ErrorHandler

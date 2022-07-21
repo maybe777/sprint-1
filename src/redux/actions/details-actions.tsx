@@ -1,23 +1,19 @@
 import React from 'react';
+import {TAppDispatch} from "../types";
+import {TDetailsAction} from "../types/details-actions-types";
 
 
-export const SHOW_DETAILS = "SHOW_DETAILS"
-export const CLOSE_DETAILS = "CLOSE_DETAILS"
+export const SHOW_DETAILS: 'SHOW_DETAILS' = "SHOW_DETAILS"
 
-export function showDetails(item: BurgerItem) {
-    return function (dispatch: any) {
-        dispatch({
+export const showDetails = (item: IBurgerItem) => (dispatch: TAppDispatch) => {
+
+    dispatch(showDetails());
+
+    function showDetails(): TDetailsAction {
+        return ({
             type: SHOW_DETAILS,
             item: item
-        });
+        })
     }
-}
 
-export function closeDetails(item: BurgerItem) {
-    return function (dispatch: any) {
-        dispatch({
-            type: CLOSE_DETAILS,
-            item: item
-        });
-    }
 }

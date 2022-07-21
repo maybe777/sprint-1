@@ -1,4 +1,4 @@
-interface BurgerItem {
+interface IBurgerItem {
     _id: string,
     name: string,
     type?: String,
@@ -10,67 +10,124 @@ interface BurgerItem {
     image: string,
     image_mobile: string,
     image_large: string,
-    __v: number
+    __v: string
 }
 
-interface IBurgerConstructorState {
-    isVisible?: Boolean
+type IIngredientState = {
+    dataRequest?: boolean,
+    dataFailed?: boolean,
+    data: Array<IBurgerItem>
 }
 
-interface IBurgerIngredientsState {
-    isVisible?: Boolean
-}
-
-interface IIngredientState {
-    dataRequest?: Boolean,
-    dataFailed?: Boolean,
-    data: BurgerItem[]
+type IOrderState = {
+    orderRequest: boolean,
+    orderFailed: boolean,
+    number: number
 }
 
 interface IHeaderData {
-    title?: String,
-    data: BurgerItem[],
+    title?: string | undefined,
+    data: Array<IBurgerItem>,
     ref?: MutableRefObject<null>,
 }
 
 interface IConstructorState {
-    items: BurgerItem[]
-}
-
-interface IOrderState {
-    dataRequest?: Boolean,
-    dataFailed?: Boolean,
-    number: number
+    items: Array<IBurgerItem>
 }
 
 interface IDetailsState {
     item: any
 }
 
-interface IHeaderItems{
-    name?: string,
-    ref: any
+interface IUserCredentials {
+    user: TUser,
+    accessToken: string,
+    refreshToken: string
 }
 
-type BurgerAction = {
-    type: string,
-    item: BurgerItem
+type TUser = {
+    name: string,
+    email: string,
 }
 
-interface UserCredentials{
-    user: User,
-    accessToken: String,
-    refreshToken: String
+type TRegisterForm = TUser & {
+    password: string,
 }
 
-interface RegisterForm{
-    name: String
-    email: String,
-    password: String,
+type TOptions = {
+    method: string,
+    headers: { [name: string]: string },
+    body?: string
 }
 
+type TBurgerProps = {
+    item: IBurgerItem,
+    count: number
+}
 
-type User = {
-    email: String,
-    name: String,
+type TConstructorProps = Omit<TBurgerProps, 'count'> & {
+    index: number
+}
+
+type TOrderDetails = {
+    orderNumber: number,
+    orderFailed: Boolean
+}
+
+interface IModal {
+    title: string,
+    onClose: () => void,
+    children: any
+}
+
+type TProtectedRoute = {
+    isAuthOnly?: boolean,
+    path: string,
+    exact: boolean
+}
+
+interface IElementCalc {
+    currentPosition: number,
+    sectionPositionArray: IHeaderData[],
+    startIndex: number,
+    endIndex: number
+}
+
+interface IAuthInitialState {
+    form: {
+        login: string,
+        password: string
+    },
+
+    loggedIn: boolean,
+    loggedOut: boolean,
+    userRequest: boolean,
+    loginRequest: boolean,
+    logoutRequest: boolean,
+    userError: boolean,
+    loginError: boolean,
+    logoutError: boolean,
+    user: TUser | null
+}
+
+interface IRegisterInitialState {
+    form: {
+        name: string,
+        email: string,
+        password: string
+    },
+    registrationRequest: boolean,
+    registrationError: boolean,
+}
+
+interface IUserProfileInitialState{
+    form?: {
+        name: string,
+        email: string
+    },
+    editProfileRequest: boolean,
+    editProfileError: boolean,
+    profileRequest: boolean,
+    profileError: boolean,
+    error: string
 }

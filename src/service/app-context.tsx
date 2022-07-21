@@ -1,4 +1,4 @@
 import React from "react";
 
 
-export const AppContext = React.createContext<BurgerItem[]>([]);
+export const AppContext = React.createContext<Array<IBurgerItem>>([]);

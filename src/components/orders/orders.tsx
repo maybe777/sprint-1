@@ -1,7 +1,7 @@
-import React from 'react'
+import React, {FC} from 'react'
 
 
-export function Orders() {
+export const Orders: FC = () => {
 
     return (
         <div>

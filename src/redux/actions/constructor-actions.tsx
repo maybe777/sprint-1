@@ -1,41 +1,48 @@
 import React from "react";
 import {v4 as uuidv4} from 'uuid';
+import {TAppDispatch} from "../types";
+import {TConstructorActions} from "../types/constructor-actions-types";
 
 
-export const ADD_ITEM = "ADD_ITEM";
-export const REMOVE_ITEM = "REMOVE_ITEM";
-export const SORT_ITEM = "SORT_ITEM";
+export const ADD_ITEM: 'ADD_ITEM' = "ADD_ITEM";
+export const REMOVE_ITEM: 'REMOVE_ITEM' = "REMOVE_ITEM";
+export const SORT_ITEM: 'SORT_ITEM' = "SORT_ITEM";
 
-export function addItem(item: BurgerItem) {
-    return function (dispatch: any) {
+export const addItem = (item: IBurgerItem) => (dispatch: TAppDispatch) => {
 
-        const itemWithUUID = (item: BurgerItem) => ({
+    dispatch(addItem());
+
+    function addItem(): TConstructorActions {
+        const itemWithUUID = (item: IBurgerItem) => ({
             ...item,
             __v: uuidv4()
         })
-        
-        dispatch({
-            type: ADD_ITEM,
-            item: itemWithUUID(item),
-        });
+        return ({type: ADD_ITEM, item: itemWithUUID(item)})
     }
+
 }
 
-export function removeItem(removeIndex: number) {
-    return function (dispatch: any) {
-        dispatch({
+export const removeItem = (removeIndex: number) => (dispatch: TAppDispatch) => {
+
+    dispatch(removeItem(removeIndex));
+
+    function removeItem(index: number): TConstructorActions {
+        return ({
             type: REMOVE_ITEM,
-            index: removeIndex
-        });
+            index: index
+        })
     }
 }
 
-export function sortItem(fromIndex: number, toIndex: number) {
-    return function (dispatch: any) {
-        dispatch({
+export const sortItem = (fromIndex: number, toIndex: number) => (dispatch: TAppDispatch) => {
+
+    dispatch(sortItem(fromIndex, toIndex));
+
+    function sortItem(from: number, to: number): TConstructorActions {
+        return ({
             type: SORT_ITEM,
-            from: fromIndex,
-            to: toIndex
-        });
+            from: from,
+            to: to
+        })
     }
 }

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {FC, useEffect} from 'react'
 import MainPage from "../../pages/main/main"
 import {Switch, Route, useLocation, useHistory} from 'react-router-dom'
 import {LoginPage} from "../../pages/login/login";
@@ -12,26 +12,24 @@ import styles from "./app.module.css";
 import AppHeader from "../header/app-header";
 import {ProtectedRoute} from "../protected-route/protected-route";
 import Modal from "../modal/modal";
-import {useDispatch} from "react-redux";
+import {useDispatch} from "../../service/hooks";
 import {getUser} from "../../redux/actions/auth-actions";
 import {getData} from "../../redux/actions/ingredients-actions";
 import OrderDetails from "../details-order/order-details";
 import {getLocalStorageItem} from "../../service/token-service";
 
 
-function App() {
+const App: FC = () => {
 
     const location = useLocation()
     const history = useHistory()
     const dispatch = useDispatch();
 
-    const loggedIn = !!getLocalStorageItem('user')
+    const loggedIn: boolean = !!getLocalStorageItem('user')
 
     useEffect(() => {
-        // @ts-ignore
         dispatch(getData())
         if (loggedIn) {
-            //@ts-ignore
             dispatch(getUser())
         }
     }, [dispatch])
